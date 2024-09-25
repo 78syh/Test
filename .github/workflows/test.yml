@@ -1,15 +1,16 @@
 name: Echo Commit SHA
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  issue_comment:
+    types: [created]
 
 jobs:
   echo-sha:
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Echo commit SHA
-        run: echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
+        run: python main.py
