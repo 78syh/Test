@@ -9,17 +9,8 @@ jobs:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get PR data
-        id: get_pr
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const prNumber = context.payload.issue.number;
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-            });
-            core.setOutput('head_sha', pr.data.head.sha);
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Echo commit SHA
-        run: echo "Commit SHA: ${{ steps.get_pr.outputs.head_sha }}
+        run: python main.py
