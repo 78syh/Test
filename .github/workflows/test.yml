@@ -6,7 +6,7 @@ on:
 
 jobs:
   check-comment:
-    if: ${{ github.event.issue.pull_request }} && startsWith(github.event.comment.body, 'jarvis.exe')
+    if: ${{ github.event.issue.pull_request != null && startsWith(github.event.comment.body, 'test.exe') }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Comment Body
